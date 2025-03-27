@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'tooling/github-webhook/**'
-      - 'utils/github-to-slack/**'
+      - 'utils/github-to-slack/github-to-slack.mjs'
 
 jobs:
   deploy:
