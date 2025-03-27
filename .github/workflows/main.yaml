@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'tooling/github-webhook/**'
-      - 'utils/github-to-slack/github-to-slack.mjs'
+    # paths:
+    #   - 'tooling/github-webhook/**'
+    #   - 'utils/github-to-slack/github-to-slack.mjs'
 
 jobs:
   deploy:
