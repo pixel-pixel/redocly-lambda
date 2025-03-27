@@ -19,11 +19,7 @@ functions:
     handler: tooling/github-webhook/dist/app.lambdaHandler
     events:
       - http:
-        path: /
-        method: any
-        cors: true
-      - http:
-        path: /{proxy+}
+        path: anypath
         method: any
         cors: true
     package:
