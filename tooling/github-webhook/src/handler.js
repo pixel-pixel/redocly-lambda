@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports.lambdaHandler = async (event) => {
-  console.log('#Lamda works');
+  console.log('#Lamda works with right directory');
   
   return {
     statusCode: 200,
