@@ -1,5 +1,3 @@
-
-
 service: github-webhook
 frameworkVersion: "3"
 
@@ -8,20 +6,58 @@ provider:
   runtime: nodejs18.x
   stage: dev
   region: us-east-1
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+          Resource: "arn:aws:logs:*:*:*"
+  apiGateway:
+    shouldStartNameWithService: true
+    binaryMediaTypes:
+      - '*/*'
+    minimumCompressionSize: 1024
+    metrics: true
+    logging: true
+    dataTraceEnabled: true
+    description: 'API Gateway for GitHub Webhook'
+    endpointConfiguration: REGIONAL
+    resourcePolicy:
+      - Effect: Allow
+        Principal: '*'
+        Action: 'execute-api:Invoke'
+        Resource: 'execute-api:/*'
+        Condition:
+          IpAddress:
+            aws:SourceIp:
+              - '0.0.0.0/0'
 
 package:
   individually: true
-  exclude:
-    - ./**
+  patterns:
+    - '!./**'
+    - 'tooling/github-webhook/dist/**/*'
 
 functions:
   github-webhook:
     handler: tooling/github-webhook/dist/app.lambdaHandler
     events:
       - http:
-        method: '*'
-        path: /path
-        cors: true
-    package:
-      include:
-        - 'tooling/github-webhook/dist/**/*'
+          path: /webhook
+          method: post
+          cors:
+            origin: '*'
+          request:
+            passThrough: WHEN_NO_MATCH
+          response:
+            headers:
+              Content-Type: "'application/json'"
+              Access-Control-Allow-Origin: "'*'"
+    environment:
+      NODE_ENV: ${opt:stage, 'dev'}
+    timeout: 30
+    memorySize: 256
+    reservedConcurrency: 10
