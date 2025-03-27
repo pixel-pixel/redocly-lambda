@@ -15,8 +15,17 @@ package:
     - ./**
 
 functions:
-  hello:
+  github-webhook:
     handler: tooling/github-webhook/dist/app.lambdaHandler
+    events:
+      - http:
+        path: /
+        method: any
+        cors: true
+      - http:
+        path: /{proxy+}
+        method: any
+        cors: true
     package:
       include:
         - 'tooling/github-webhook/dist/**/*'
