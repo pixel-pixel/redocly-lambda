@@ -4,14 +4,17 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - 'tooling/github-webhook/**'
-    #   - 'utils/github-to-slack/**'
+    paths:
+      - 'tooling/github-webhook/**'
+      - 'utils/github-to-slack/**'
 
 jobs:
   deploy:
     name: deploy
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'tooling/github-webhook'
     strategy:
       matrix:
         node-version: [18.x]
