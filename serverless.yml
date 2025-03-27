@@ -11,4 +11,4 @@ provider:
 
 functions:
   hello:
-    handler: src/handler.lambdaHandler
+    handler: src/index.lambdaHandler
