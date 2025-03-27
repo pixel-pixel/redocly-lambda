@@ -12,3 +12,6 @@ provider:
 functions:
   hello:
     handler: tooling/github-webhook/dist/app.lambdaHandler
+    package:
+      include:
+        - 'tooling/github-webhook/dist/**/*'
