@@ -28,10 +28,12 @@ jobs:
       run: npm install
     - name: build
       run: npm run build
+    - name: move serverless file in the root
+      run mv serverless.yml ../..
     - name: serverless deploy
       uses: serverless/github-action@v3.2
       with:
-        args: deploy -c ./tooling/github-webhook/serverless.yml
+        args: deploy
       env:
         # SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
         # or if using AWS credentials directly
