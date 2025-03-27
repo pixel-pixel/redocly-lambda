@@ -18,8 +18,9 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Change working directory
+      run: cd tooling/github-hooks
     - name: serverless deploy
-      working-directory: ./tooling/github-webhook
       uses: serverless/github-action@v3.2
       with:
         args: deploy
