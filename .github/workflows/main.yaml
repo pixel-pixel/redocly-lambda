@@ -9,9 +9,6 @@ jobs:
   deploy:
     name: deploy
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./tooling/github-webhook
     strategy:
       matrix:
         node-version: [18.x]
@@ -22,6 +19,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: serverless deploy
+      working-directory: ./tooling/github-webhook
       uses: serverless/github-action@v3.2
       with:
         args: deploy
