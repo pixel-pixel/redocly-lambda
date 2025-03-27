@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - 'tooling/github-webhook/**'
-    #   - 'utils/github-to-slack/github-to-slack.mjs'
+    paths:
+      - 'tooling/github-webhook/**'
+      - 'utils/github-to-slack/**'
 
 jobs:
   deploy:
@@ -29,7 +29,7 @@ jobs:
     - name: build
       run: npm run build
     - name: move serverless file in the root
-      run mv serverless.yml ../..
+      run: mv serverless.yml ../..
     - name: serverless deploy
       uses: serverless/github-action@v3.2
       with:
